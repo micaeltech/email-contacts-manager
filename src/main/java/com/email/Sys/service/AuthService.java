@@ -7,11 +7,15 @@ import com.email.Sys.dto.AuthResponseDTO;
 import com.email.Sys.model.User;
 import com.email.Sys.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import java.util.ArrayList;
 
 @Service
-public class AuthService {
+public class AuthService implements UserDetailsService {
 	
 	@Autowired
 	private UserRepository repository;
@@ -20,11 +24,10 @@ public class AuthService {
 	private JwtUtil jwtUtil;
 	
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 	
-	
-	public AuthResponseDTO register(RegisterRequestDTO dto) {
-		
+	// 1. Cadastro
+	public AuthResponseDTO register(RegisterRequestDTO dto) {	
 		// Verificar se o email já existe
 		if (repository.existsByEmail(dto.getEmail())) {
 			return new AuthResponseDTO("Email já existe.", false);
@@ -52,8 +55,8 @@ public class AuthService {
 				);
 	}
 	
+	// 2. Login
 	public AuthResponseDTO login(LoginRequestDTO dto) {
-		
 		// Buscar usuario por id
 		User user = repository.findByEmail(dto.getEmail()).orElse(null);
 		
@@ -77,5 +80,17 @@ public class AuthService {
 				user.getName(),
 				jwtUtil.generateToken(user.getEmail())
 				);
+	}
+	
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	    User user = repository.findByEmail(email)
+	            .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + email));
+	    
+	    return org.springframework.security.core.userdetails.User
+	            .withUsername(user.getEmail())
+	            .password(user.getPassword())
+	            .authorities(new ArrayList<>())
+	            .build();
 	}
 }

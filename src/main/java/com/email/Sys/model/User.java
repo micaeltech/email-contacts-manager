@@ -2,8 +2,10 @@ package com.email.Sys.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.time.LocalDate;
 @Entity
 @Table(name = "users")
 public class User {
@@ -21,83 +23,78 @@ public class User {
     @Column(nullable = false, unique = true, length = 150)
     private String email;
     
-    @Column(nullable = false)
+    @Column(name = "secondary_email", unique = true)
+    private String secondaryEmail;
+    
+    @Column(nullable = false, length = 255)
+    @JsonIgnore
     private String password;
     
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status;
     
+    @Column(name = "photo_url", length = 1000)
+    private String photoUrl;
+    
     public enum Status {
         OFFLINE, ONLINE
     }
     
-    // Construtor vazio (obrigatório para JPA)
-    public User() {}
+    @PrePersist
+    public void prePersist() {
+    	this.createdAt = LocalDateTime.now();
+    }
     
-    // Construtor com campos principais
+    public User() {}
     public User(String name, LocalDate birthDate, String email, String password) {
         this.name = name;
         this.birthDate = birthDate;
         this.email = email;
         this.password = password;
+        
+        this.secondaryEmail = null;
         this.status = Status.OFFLINE;
+        this.photoUrl = null;
     }
     
     // Getters and Setters
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
     
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
     
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
     
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
     
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
+    public LocalDate getBirthDate() { return birthDate; }
     
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
+    public void setBirthDate(LocalDate birthDate) { this.birthDate = birthDate; }
     
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() { return email; }
     
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public void setEmail(String email) { this.email = email; }
     
-    public String getPassword() {
-        return password;
-    }
+    public String getSecondaryEmail() { return secondaryEmail; }
     
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public void setSecondaryEmail(String secondaryEmail) { this.secondaryEmail = secondaryEmail; }
     
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+    public String getPassword() { return password; }
+    
+    public void setPassword(String password) { this.password = password; }
+    
+    public LocalDateTime getCreatedAt() { return createdAt; }
+ 
+    public Status getStatus() { return status; }
+    
+    public void setStatus(Status status) { this.status = status; }
+    
+    public String getPhotoUrl() { return photoUrl;}
+    
+    public void setPhotoUrl(String photoUrl) { this.photoUrl = photoUrl; }
     
     
-    public Status getStatus() {
-        return status;
-    }
-    
-    public void setStatus(Status status) {
-        this.status = status;
-    }
 }
