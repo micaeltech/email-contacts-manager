@@ -72,7 +72,6 @@ The API will be available at `http://localhost:8080`.
 
 ### Auth
 
-```bash
 # Register
 curl -X POST http://localhost:8080/auth/register \
   -H "Content-Type: application/json" \
