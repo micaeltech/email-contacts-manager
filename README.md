@@ -72,102 +72,102 @@ The API will be available at `http://localhost:8080`.
 
 ### Auth
 
-# Register
+### Register
 curl -X POST http://localhost:8080/auth/register \
   -H "Content-Type: application/json" \
   -d '{"name":"John Doe","birthDate":"1990-05-15","email":"john@email.com","password":"Senha123!@#"}'
 
-# Login
+### Login
 curl -X POST http://localhost:8080/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"john@email.com","password":"Senha123!@#"}'
 
-# Logout
+### Logout
 curl -X POST http://localhost:8080/auth/logout \
   -H "Authorization: Bearer YOUR_TOKEN"
 
 ```
 ### USER PROFILE
 ```
-# Update email
+### Update email
 curl -X PUT http://localhost:8080/User/email \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -d '{"newEmail":"john.new@email.com"}'
 
-# Add backup email
+### Add backup email
 curl -X POST http://localhost:8080/User/backup-email \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -d '{"backupEmail":"backup@email.com"}'
 
-# Update status
+### Update status
 curl -X PUT http://localhost:8080/User/status \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -d '{"status":"OFFLINE"}'
 
-# Update photo
+### Update photo
 curl -X PUT http://localhost:8080/User/photo \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -d '{"photoUrl":"https://example.com/photo.png"}'
 
-# Remove photo
+### Remove photo
 curl -X DELETE http://localhost:8080/User/photo \
   -H "Authorization: Bearer YOUR_TOKEN"
 
 ```
 ### CONTACTS
 ```
-# Add contact
+### Add contact
 curl -X POST http://localhost:8080/contacts \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -d '{"contactEmail":"maria@email.com","nickname":"Maria"}'
 
-# List contacts
+### List contacts
 curl -X GET http://localhost:8080/contacts \
   -H "Authorization: Bearer YOUR_TOKEN"
 
-# Search contact
+### Search contact
 curl -X GET http://localhost:8080/contacts/search?q=Mar \
   -H "Authorization: Bearer YOUR_TOKEN"
 
-# Remove contact
+### Remove contact
 curl -X DELETE http://localhost:8080/contacts/2 \
   -H "Authorization: Bearer YOUR_TOKEN"
 
 ```
 ### EMAILS
 ```
-# Send email
+### Send email
 curl -X POST http://localhost:8080/emails/send \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -d '{"to":"maria@email.com","subject":"Hello","content":"How are you?"}'
 
-# Inbox
+### Inbox
 curl -X GET http://localhost:8080/emails/feed \
   -H "Authorization: Bearer YOUR_TOKEN"
 
-# Sent
+### Sent
 curl -X GET http://localhost:8080/emails/sent \
   -H "Authorization: Bearer YOUR_TOKEN"
 
-# Inbox from a contact
+### Inbox from a contact
 curl -X GET http://localhost:8080/emails/feed/contact/2 \
   -H "Authorization: Bearer YOUR_TOKEN"
 
-# Sent to a contact
+### Sent to a contact
 curl -X GET http://localhost:8080/emails/sent/contact/2 \
   -H "Authorization: Bearer YOUR_TOKEN"
 
-# Conversation
+### Conversation
 curl -X GET http://localhost:8080/emails/conversation/2 \
   -H "Authorization: Bearer YOUR_TOKEN"
 
-# Email details
+### Email details
 curl -X GET http://localhost:8080/emails/1 \
   -H "Authorization: Bearer YOUR_TOKEN"
 ```
