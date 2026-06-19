@@ -90,7 +90,6 @@ curl -X POST http://localhost:8080/auth/logout \
 ```
 ### USER PROFILE
 ```
-
 # Update email
 curl -X PUT http://localhost:8080/User/email \
   -H "Content-Type: application/json" \
@@ -122,7 +121,6 @@ curl -X DELETE http://localhost:8080/User/photo \
 ```
 ### CONTACTS
 ```
-
 # Add contact
 curl -X POST http://localhost:8080/contacts \
   -H "Content-Type: application/json" \
@@ -144,7 +142,6 @@ curl -X DELETE http://localhost:8080/contacts/2 \
 ```
 ### EMAILS
 ```
-
 # Send email
 curl -X POST http://localhost:8080/emails/send \
   -H "Content-Type: application/json" \
