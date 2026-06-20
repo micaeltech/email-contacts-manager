@@ -19,16 +19,15 @@ public class SecurityConfig {
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf(csrf -> csrf.disable()) // Desabilita CSRF para API REST
+		http.csrf(csrf -> csrf.disable()) 
 		.sessionManagement(session -> 
 		session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 		.authorizeHttpRequests(auth -> auth
 				// Endpoints públicos 
 				.requestMatchers("/auth/**").permitAll()
-				.requestMatchers("/h2-console/**").permitAll() // Permite acesso ao H2
+        .requestMatchers("/static/**", "/assets/**", "/index.html", "/home.html").permitAll()
 				.anyRequest().authenticated()
-				)
-		.headers(headers -> headers.frameOptions(frame -> frame.disable()));
+				);
 		
 		return http.build();
 	}
