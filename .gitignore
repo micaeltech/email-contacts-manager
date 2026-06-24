@@ -31,3 +31,24 @@ build/
 
 ### VS Code ###
 .vscode/
+*.swp
+
+# Arquivos de configuração (senhas)
+application.properties
+*.properties
+!.gitignore
+.env
+
+# IDE
+.idea/
+*.iml
+.settings/
+.classpath
+.project
+
+# Banco
+*.db
+*.sqlite
+
+# Logs
+*.log
