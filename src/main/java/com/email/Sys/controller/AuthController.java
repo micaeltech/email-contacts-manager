@@ -4,12 +4,12 @@ import com.email.Sys.dto.RegisterRequestDTO;
 import com.email.Sys.dto.LoginRequestDTO;
 import com.email.Sys.dto.AuthResponseDTO;
 import com.email.Sys.service.AuthService;
+import com.email.Sys.config.TokenBlackListService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "http://localhost:8081")
@@ -17,6 +17,9 @@ public class AuthController {
 	
 	@Autowired
 	private AuthService authService;
+	
+	@Autowired
+	private TokenBlackListService tokenBlacklistService;
 	
 	@PostMapping("/register")
 	public ResponseEntity<AuthResponseDTO> register(@Valid @RequestBody RegisterRequestDTO dto) {
@@ -43,4 +46,14 @@ public class AuthController {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 		}
 	}
+	
+	@PostMapping("/logout")
+    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String authHeader) {
+        
+        String token = authHeader.substring(7);
+        
+        tokenBlacklistService.invalidateToken(token);
+        
+        return ResponseEntity.ok().build();
+    }
 }

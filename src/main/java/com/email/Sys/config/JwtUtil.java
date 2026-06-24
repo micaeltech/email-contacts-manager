@@ -5,7 +5,9 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
-
+import com.email.Sys.model.User;
+import com.email.Sys.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.security.Key;
 import java.util.Date;
 
@@ -15,6 +17,9 @@ public class JwtUtil {
 	private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 	
 	private static final long EXPIRATION_TIME = 86400000;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	// Gerar token
 	public String generateToken(String email) {
@@ -45,5 +50,15 @@ public class JwtUtil {
 				.build()
 				.parseClaimsJws(token)
 				.getBody();
+	}
+	
+	public Long extractUserIdFromToken(String authHeader) {
+		String token = authHeader.substring(7);
+		String email = extractEmail(token);
+		
+		User user = userRepository.findByEmail(email)
+				.orElseThrow(() -> new RuntimeException("Usuário não encontrado no token"));
+		
+		return user.getId();
 	}
 }
