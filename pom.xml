@@ -84,8 +84,17 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
-        </dependency>
-    </dependencies>
+          </dependency>
+
+            <!-- Swagger / OpenAPI - Versão compatível com Spring Boot 4.x -->
+          
+          <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>3.0.3</version>
+          </dependency>
+
+</dependencies>
 
     <build>
         <plugins>
