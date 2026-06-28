@@ -13,7 +13,7 @@ Backend API for managing contacts and emails. Built with Spring Boot.
 ## Features
 
 - User registration, login, and logout
-- Profile management (email, password, photo, status)
+- Profile management (email, password, status)
 - Contact list (add, remove, search)
 - Email system (send, inbox, sent, conversation)
 
@@ -32,8 +32,6 @@ Backend API for managing contacts and emails. Built with Spring Boot.
 - `POST /User/backup-email` – Add backup email
 - `DELETE /User/backup-email` – Remove backup email
 - `PUT /User/status` – Set online/offline
-- `PUT /User/photo` – Update photo
-- `DELETE /User/photo` – Remove photo
 
 ### Contacts
 
@@ -106,16 +104,6 @@ curl -X PUT http://localhost:8080/User/status \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -d '{"status":"OFFLINE"}'
-
-### Update photo
-curl -X PUT http://localhost:8080/User/photo \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{"photoUrl":"https://example.com/photo.png"}'
-
-### Remove photo
-curl -X DELETE http://localhost:8080/User/photo \
-  -H "Authorization: Bearer YOUR_TOKEN"
 
 ```
 ### CONTACTS
