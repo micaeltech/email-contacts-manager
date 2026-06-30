@@ -1,6 +1,8 @@
 # Email Contacts Manager
 
-Backend API for managing contacts and emails. Built with Spring Boot.
+A RESTful API for managing contacts and emails, built with Spring Boot. 
+This project provides a complete backend solution with authentication, 
+contact management, and email messaging features.
 
 ## Tech Stack
 
@@ -11,11 +13,11 @@ Backend API for managing contacts and emails. Built with Spring Boot.
 - Maven
 
 ## Features
-
-- User registration, login, and logout
-- Profile management (email, password, status)
-- Contact list (add, remove, search)
-- Email system (send, inbox, sent, conversation)
+- User Authentication: Register, login, and logout with JWT-based authentication
+- User Profile: Update email, password, backup email, and online/offline status
+- Contact Management: Add, list, search, and remove contacts from your address book
+- Email Messaging: Send emails, view inbox, sent messages, and conversation history
+- Secure & Validated: Password encryption (BCrypt), input validation, and duplicate prevention
 
 ## API Endpoints
 
