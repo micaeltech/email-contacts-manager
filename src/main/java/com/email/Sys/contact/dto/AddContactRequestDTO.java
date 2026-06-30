@@ -11,12 +11,12 @@ public class AddContactRequestDTO {
 	@Email(message = "Email deve ser válido")
 	private String contactEmail;
 	
-	@Size(min = 5, max = 30, message = "Nome deve ter no mínimo 4 caracteres")
-    @Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]+$", message = "Nome deve conter apenas letras e espaços")
+	@Size(min = 3, max = 30, message = "Apelido deve ter no mínimo 3 caracteres")
+	@Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]+$", message = "Apelido deve conter apenas letras e espaços")
 	private String nickname;
 	
 	public String getContactEmail() { return contactEmail; }
-	public void setContactEmail(String contactEmail) { this.contactEmail = contactEmail;}
-	public String getNickname() { return nickname;}
-	public void setNickname(String nickname) {this.nickname = nickname; }
+	public void setContactEmail(String contactEmail) { this.contactEmail = contactEmail; }
+	public String getNickname() { return nickname; }
+	public void setNickname(String nickname) { this.nickname = nickname; }
 }
