@@ -55,8 +55,8 @@ Backend API for managing contacts and emails. Built with Spring Boot.
 - Java 17
 - PostgreSQL 12+
 
----------
-### Setup
+---------------------------------------------------------------------------------------------------------------------------
+## Setup
 
 1. Clone the repo
 2. Create a PostgreSQL database named `email_manager`
@@ -65,6 +65,33 @@ Backend API for managing contacts and emails. Built with Spring Boot.
 
 The API will be available at `http://localhost:8080`.
 
+
+### API Documentation
+
+This project uses **Swagger/OpenAPI** for interactive API documentation.
+
+### Swagger UI
+
+Once the application is running, you can explore and test all endpoints at: 
+
+- http://localhost:8080/swagger-ui/index.html
+
+
+### OpenAPI JSON
+
+You can also access the raw OpenAPI specification in JSON format: 
+
+- http://localhost:8080/v3/api-docs
+
+
+### How to test protected endpoints
+
+1. Use `/auth/login` or `/auth/register` to get a JWT token
+2. Click the **Authorize** button (🔓) at the top of the Swagger page
+3. Paste your token in the format: `Bearer <your-token>`
+4. After that, for each protected endpoint, make sure to include the same token in the `Authorization` header manually (Swagger does not always send it automatically)
+
+---------------------------------------------------------------------------------------------------------------------------
 
 ## Test Commands
 
