@@ -26,28 +26,23 @@ public class AuthService implements UserDetailsService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	// 1. Cadastro
 	public AuthResponseDTO register(RegisterRequestDTO dto) {	
-		// Verificar se o email já existe
 		if (repository.existsByEmail(dto.getEmail())) {
 			return new AuthResponseDTO("Email já existe.", false);
 		}
 		
-		// Criptografar a senha
 		String encrypted_passw = passwordEncoder.encode(dto.getPassword());
 		
-		// Criar novo usuário
 		User user = new User(
 				dto.getName(),
 				dto.getBirthDate(),
 				dto.getEmail(),
-				encrypted_passw
+				encrypted_passw,
+        dto.getPhone()
 				);
 		
-		// salvar no banco de dados
 		repository.save(user);
 		
-		// retornar sucesso
 		return new AuthResponseDTO(
 				user.getEmail(),
 				user.getName(),
@@ -55,26 +50,20 @@ public class AuthService implements UserDetailsService {
 				);
 	}
 	
-	// 2. Login
 	public AuthResponseDTO login(LoginRequestDTO dto) {
-		// Buscar usuario por id
 		User user = repository.findByEmail(dto.getEmail()).orElse(null);
 		
-		// Verificar se usuário existe
 		if (user == null) {
 			return new AuthResponseDTO("Email não encontrado.", false);
 		}
 		
-		// Verificar se a senha está correta
 		if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
 			return new AuthResponseDTO("Senha incorreta.", false);
 		}
 		
-		// Atualizar status para online
 		user.setStatus(User.Status.ONLINE);
 		repository.save(user);
 		
-		// Retornar sucesso
 		return new AuthResponseDTO(
 				user.getEmail(),
 				user.getName(),

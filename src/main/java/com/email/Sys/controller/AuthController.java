@@ -3,7 +3,11 @@ package com.email.Sys.controller;
 import com.email.Sys.dto.RegisterRequestDTO;
 import com.email.Sys.dto.LoginRequestDTO;
 import com.email.Sys.dto.AuthResponseDTO;
+import com.email.Sys.auth.dto.ForgotPasswordRequestDTO;
+import com.email.Sys.auth.dto.VerifyCodeRequestDTO;
+import com.email.Sys.auth.dto.ResetPasswordRequestDTO;
 import com.email.Sys.service.AuthService;
+import com.email.Sys.service.PasswordResetService;
 import com.email.Sys.config.TokenBlackListService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,9 @@ public class AuthController {
 	
 	@Autowired
 	private TokenBlackListService tokenBlacklistService;
+
+  @Autowired
+  private PasswordResetService passwordResetService;
 	
 	@PostMapping("/register")
 	public ResponseEntity<AuthResponseDTO> register(@Valid @RequestBody RegisterRequestDTO dto) {
@@ -46,6 +53,24 @@ public class AuthController {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 		}
 	}
+  
+  @PostMapping("/forgot-password")
+  public ResponseEntity<Void> forgotPassword(@Valid @RequestBody ForgotPasswordRequestDTO dto) {
+    passwordResetService.forgotPassword(dto);
+    return ResponseEntity.ok().build();
+  }
+  
+  @PostMapping("/verify-code")
+  public ResponseEntity<Void> verifyCode(@Valid @RequestBody VerifyCodeRequestDTO dto) {
+    passwordResetService.verifyCode(dto);
+    return ResponseEntity.ok().build();
+  }
+  
+  @PostMapping("/reset-password")
+  public ResponseEntity<Void> resetPassword(@Valid @RequestBody ResetPasswordRequestDTO dto) {
+    passwordResetService.resetPassword(dto);
+    return ResponseEntity.ok().build();
+  }
 	
 	@PostMapping("/logout")
     public ResponseEntity<Void> logout(@RequestHeader("Authorization") String authHeader) {

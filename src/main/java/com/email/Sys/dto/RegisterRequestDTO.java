@@ -6,28 +6,33 @@ import java.time.Period;
 
 public class RegisterRequestDTO {
     
-    @NotBlank(message = "Nome é obrigatório")
-    @Size(min = 4, message = "Nome deve ter no mínimo 4 caracteres")
-    @Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]+$", message = "Nome deve conter apenas letras e espaços")
+    @NotBlank(message = "Name is required")
+    @Size(min = 4, message = "Name must have at least 4 characters")
+    @Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]+$", message = "Name must contain only letters and spaces")
     private String name;
     
-    @NotNull(message = "Data de nascimento é obrigatória")
-    @Past(message = "Data de nascimento deve ser no passado")
+    @NotNull(message = "Birth date is required")
+    @Past(message = "Birth date must be in the past")
     private LocalDate birthDate;
     
-    @NotBlank(message = "Email é obrigatório")
-    @Email(message = "Email deve ser válido")
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email must be valid")
     @Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",
-             message = "Email não pode conter maiúsculas, espaços ou caracteres especiais inválidos")
+             message = "Email cannot contain uppercase, spaces or invalid special characters")
     private String email;
     
-    @NotBlank(message = "Senha é obrigatória")
-    @Size(min = 8, message = "Senha deve ter no mínimo 8 caracteres")
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, message = "Password must have at least 8 characters")
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!]).*$",
-             message = "Senha deve conter letra maiúscula, minúscula, número e caractere especial")
+             message = "Password must contain uppercase, lowercase, number and special character")
     private String password;
+
+    @NotBlank(message = "Phone number is required")
+    @Pattern(regexp = "^\\+?[0-9]{10,15}$", 
+             message = "Phone must be valid. Use format: +xx xxxxxxxxxx (10 to 15 digits)")
+    private String phone;
     
-    @AssertTrue(message = "Idade não pode ultrapassar 120 anos")
+    @AssertTrue(message = "Age cannot exceed 120 years")
     public boolean isValidAge() {
         if (birthDate == null) return false; 
         LocalDate today = LocalDate.now();
@@ -35,7 +40,6 @@ public class RegisterRequestDTO {
         return age <= 120;
     }
     
-    // Getters e Setters
     public String getName() {
         return name;
     }
@@ -67,6 +71,12 @@ public class RegisterRequestDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }
-
-
