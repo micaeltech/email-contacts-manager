@@ -23,33 +23,36 @@ contact management, and email messaging features.
 
 ### Auth
 
-- `POST /auth/register` – Create account
-- `POST /auth/login` – Login
-- `POST /auth/logout` – Logout
+- `POST /auth/register` - Create account
+- `POST /auth/login` - Login
+- `POST /auth/logout` - Logout
+- `POST /auth/forgot-password` - Request password reset code
+- `POST /auth/verify-code` - Verify the 6-digit code
+- `POST /auth/reset-password` - Reset password with code
 
 ### User Profile
 
-- `PUT /User/email` – Update email
-- `PUT /User/password` – Update password
-- `POST /User/backup-email` – Add backup email
-- `DELETE /User/backup-email` – Remove backup email
-- `PUT /User/status` – Set online/offline
+- `PUT /User/email` - Update email
+- `PUT /User/password` - Update password
+- `POST /User/backup-email` - Add backup email
+- `DELETE /User/backup-email` - Remove backup email
+- `PUT /User/status` - Set online/offline
 
 ### Contacts
 
-- `POST /contacts` – Add contact
-- `GET /contacts` – List contacts
-- `GET /contacts/search?q=` – Search by nickname
-- `DELETE /contacts/{id}` – Remove contact
+- `POST /contacts` - Add contact
+- `GET /contacts` - List contacts
+- `GET /contacts/search?q=` - Search by nickname
+- `DELETE /contacts/{id}` - Remove contact
 
 ### Emails
 
-- `POST /emails/send` – Send email
-- `GET /emails/feed` – Inbox
-- `GET /emails/sent` – Sent emails
-- `GET /emails/feed/contact/{id}` – Inbox from a contact
-- `GET /emails/sent/contact/{id}` – Sent to a contact
-- `GET /emails/conversation/{id}` – Conversation with a contact
+- `POST /emails/send` - Send email
+- `GET /emails/feed` - Inbox
+- `GET /emails/sent` - Sent emails
+- `GET /emails/feed/contact/{id}` - Inbox from a contact
+- `GET /emails/sent/contact/{id}` - Sent to a contact
+- `GET /emails/conversation/{id}` - Conversation with a contact
 - `GET /emails/{id}` – Email details
 
 ### Prerequisites
@@ -57,7 +60,8 @@ contact management, and email messaging features.
 - Java 17
 - PostgreSQL 12+
 
----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ## Setup
 
 1. Clone the repo
@@ -89,13 +93,28 @@ You can also access the raw OpenAPI specification in JSON format:
 ### How to test protected endpoints
 
 1. Use `/auth/login` or `/auth/register` to get a JWT token
-2. Click the **Authorize** button (🔓) at the top of the Swagger page
-3. Paste your token in the format: `Bearer <your-token>`
-4. After that, for each protected endpoint, make sure to include the same token in the `Authorization` header manually (Swagger does not always send it automatically)
+2. Click the --> Authorize <-- button 🔓 at the top of the Swagger page
+3. Paste your token in the format: `Bearer your-token`
+4. After that, for each protected endpoint, make sure to include the same token in the `Authorization`
+header manually (Swagger does not always send it automatically)
 
----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Test Commands
+
+
+### 🔑 Using variables in test commands     
+                                                
+To avoid copying the token manually every time, 
+you can store it in a variable:
+
+`bash`
+-> YOUR_TOKEN="your_jwt_token_here"
+
+-H "Authorization: Bearer $YOUR_TOKEN"
+
+
+
 
 ### Auth
 
@@ -112,6 +131,24 @@ curl -X POST http://localhost:8080/auth/login \
 ### Logout
 curl -X POST http://localhost:8080/auth/logout \
   -H "Authorization: Bearer YOUR_TOKEN"
+
+Forgot Password
+
+curl -X POST http://localhost:8080/auth/forgot-password 
+  -H "Content-Type: application/json" 
+  -d '{"email":"john@email.com","method":"sms"}'
+
+Verify Code
+
+curl -X POST http://localhost:8080/auth/verify-code 
+  -H "Content-Type: application/json" 
+  -d '{"email":"john@email.com","code":"123456"}'
+
+Reset Password
+
+curl -X POST http://localhost:8080/auth/reset-password 
+  -H "Content-Type: application/json" 
+  -d '{"email":"john@email.com","code":"123456","newPassword":"Senha123!@#"}'
 
 ```
 ### USER PROFILE
