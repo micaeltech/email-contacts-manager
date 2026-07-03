@@ -98,6 +98,33 @@ You can also access the raw OpenAPI specification in JSON format:
 4. After that, for each protected endpoint, make sure to include the same token in the `Authorization`
 header manually (Swagger does not always send it automatically)
 
+
+## 📸 Screenshots
+
+### Swagger UI - All Endpoints
+![Swagger UI](screenshots/Screenshot%20Swagger-UI.png)
+
+### Register - User Creation
+![Register](screenshots/Screenshot%20Swagger-register.png)
+
+### Login - JWT Token
+![Login](screenshots/Screenshot%20Swagger-login.png)
+
+### Save Token - Authorization
+![Save Token](screenshots/Swagger-save-token.png)
+
+### Contacts - Add and List
+![Contacts](screenshots/Screenshot%20Swagger-contacts.png)
+
+### Emails - Send and View
+![Emails](screenshots/Screenshot%20Swagger-emails.png)
+
+### Send Email
+![Send Email](screenshots/Screenshot%20Swagger-send-email.png)
+
+### Inbox - Received Emails
+![Inbox](screenshots/Screenshot%20Swagger-feed.png)
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Test Commands
@@ -112,8 +139,6 @@ you can store it in a variable:
 -> YOUR_TOKEN="your_jwt_token_here"
 
 -H "Authorization: Bearer $YOUR_TOKEN"
-
-
 
 
 ### Auth
