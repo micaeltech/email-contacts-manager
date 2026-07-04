@@ -157,19 +157,19 @@ curl -X POST http://localhost:8080/auth/login \
 curl -X POST http://localhost:8080/auth/logout \
   -H "Authorization: Bearer YOUR_TOKEN"
 
-Forgot Password
+### Forgot Password
 
 curl -X POST http://localhost:8080/auth/forgot-password 
   -H "Content-Type: application/json" 
   -d '{"email":"john@email.com","method":"sms"}'
 
-Verify Code
+### Verify Code
 
 curl -X POST http://localhost:8080/auth/verify-code 
   -H "Content-Type: application/json" 
   -d '{"email":"john@email.com","code":"123456"}'
 
-Reset Password
+### Reset Password
 
 curl -X POST http://localhost:8080/auth/reset-password 
   -H "Content-Type: application/json" 
