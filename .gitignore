@@ -53,3 +53,4 @@ application.properties
 # Logs
 *.log
 install.sh
+.DS_Store
