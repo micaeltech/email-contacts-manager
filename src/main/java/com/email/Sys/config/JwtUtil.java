@@ -1,33 +1,37 @@
 package com.email.Sys.config;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.io.Decoders;
 import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
 import com.email.Sys.model.User;
 import com.email.Sys.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.security.Key;
 import java.util.Date;
-
 @Component
 public class JwtUtil {
 	
-	private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+	@Value("${jwt.secret}")
+	private String jwtSecret;
+	
+	private Key getSigningKey() {
+		byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
+		return Keys.hmacShaKeyFor(keyBytes);
+	}
 	
 	private static final long EXPIRATION_TIME = 86400000;
 	
 	@Autowired
 	private UserRepository userRepository;
 	
-	// Gerar token
 	public String generateToken(String email) {
 		return Jwts.builder()
 				.setSubject(email)
 				.setIssuedAt(new Date())
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-				.signWith(SECRET_KEY)
+				.signWith(getSigningKey())
 				.compact();
 				
 	}
@@ -46,7 +50,7 @@ public class JwtUtil {
 	
 	private Claims getClaims(String token) {
 		return Jwts.parserBuilder()
-				.setSigningKey(SECRET_KEY)
+				.setSigningKey(getSigningKey())
 				.build()
 				.parseClaimsJws(token)
 				.getBody();
