@@ -91,25 +91,29 @@
             <scope>test</scope>
         </dependency>
 
-            <!-- Swagger / OpenAPI - Versão compatível com Spring Boot 4.x -->
-          
-          <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>3.0.3</version>
-          </dependency>
+        <!-- Swagger / OpenAPI -->
+        <dependency>
+          <groupId>org.springdoc</groupId>
+          <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+          <version>3.0.3</version>
+        </dependency>
 
-</dependencies>
+        <!-- Redis -->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+      </dependencies>
 
-    <build>
+      <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <addResources>true</addResources>
-                </configuration>
-            </plugin>
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+              <addResources>true</addResources>
+            </configuration>
+          </plugin>
         </plugins>
-    </build>
+      </build>
 </project>
