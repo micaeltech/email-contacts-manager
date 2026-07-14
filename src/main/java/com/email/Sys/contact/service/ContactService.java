@@ -20,18 +20,17 @@ public class ContactService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	// 1. Adicionar email de contato
 	public ContactResponseDTO addContact(Long userId, AddContactRequestDTO dto) {
 		
 		User user = findUserById(userId);
 		User contactUser = findUserByEmail(dto.getContactEmail());
 		
 		if (userId.equals(contactUser.getId())) {
-			throw new RuntimeException("Não é possível adicionar a si mesmo.");
+			throw new RuntimeException("You cannot add yourself.");
 		}
 		
 		if (contactRepository.existsByUserAndContactUser(user, contactUser)) {
-			throw new RuntimeException("Este Contato já existe.");
+			throw new RuntimeException("This contact already exists.");
 		}
 		
 		Contact contact = new Contact(user, contactUser, dto.getNickname());
@@ -42,19 +41,17 @@ public class ContactService {
 		
 	}
 	
-	// 2. Remover email de contato
 	public void removeContact(Long userId, Long contactUserId) {
 		
 		User user = findUserById(userId);
 		User contactUser = findUserById(contactUserId);
 		
 		Contact contact = contactRepository.findByUserAndContactUser(user, contactUser)
-				.orElseThrow(() -> new RuntimeException("Contato não encontrado."));
+				.orElseThrow(() -> new RuntimeException("Contact not found."));
 		
 		contactRepository.delete(contact);
 	}
 	
-	// 3. Listar emails de contato
 	public List<ContactResponseDTO> listContacts(Long userId) {
 		
 		User user = findUserById(userId);
@@ -65,7 +62,6 @@ public class ContactService {
 				.collect(Collectors.toList());
 	}
 	
-	// 4. Buscar email de contato pelo nickname
 	public List<ContactResponseDTO> searchByNickname(Long userId, String searchTerm) {
 		
 		User user = findUserById(userId);
@@ -77,15 +73,14 @@ public class ContactService {
 				.collect(Collectors.toList());
 	}
 	
-	// 5. buscar email de contato pelo email
 	private User findUserByEmail(String email) {
 		return userRepository.findByEmail(email)
-				.orElseThrow(() -> new RuntimeException("Usuário com email "+ email + " não encontrado."));
+				.orElseThrow(() -> new RuntimeException("User with email "+ email + " not found."));
 	}
 	
 	private User findUserById(Long userId) {
 		return userRepository.findById(userId)
-				.orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+				.orElseThrow(() -> new RuntimeException("User not found."));
 	}
 	
 	private ContactResponseDTO toResponseDTO(Contact contact) {

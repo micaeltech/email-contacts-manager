@@ -42,12 +42,12 @@ public class Contact {
 		this.nickname = nickname;
 	}
 	
-	public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
-    public User getContactUser() { return contactUser; }
-    public void setContactUser(User contactUser) { this.contactUser = contactUser; } 
-    public String getNickname() { return nickname; }
-    public void setNickname(String nickname) { this.nickname = nickname; }
+  public Long getId() { return id; }
+  public void setId(Long id) { this.id = id; }
+  public User getUser() { return user; }
+  public void setUser(User user) { this.user = user; }
+  public User getContactUser() { return contactUser; }
+  public void setContactUser(User contactUser) { this.contactUser = contactUser; } 
+  public String getNickname() { return nickname; }
+  public void setNickname(String nickname) { this.nickname = nickname; }
 }

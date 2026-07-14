@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
-
 @Service
 public class EmailService {
 
@@ -25,9 +24,8 @@ public class EmailService {
         User sender = findUserById(senderId);
         User receiver = findUserByEmail(dto.getTo());
 
-        // Impedir enviar para si mesmo
         if (sender.getId().equals(receiver.getId())) {
-            throw new RuntimeException("Não é possível enviar email para si mesmo");
+            throw new RuntimeException("You cannot send an email to yourself.");
         }
 
         Email email = new Email(sender, receiver, dto.getSubject(), dto.getContent());
@@ -78,11 +76,11 @@ public class EmailService {
     public EmailResponseDTO getEmailById(Long userId, Long emailId) {
         User user = findUserById(userId);
         Email email = emailRepository.findById(emailId)
-                .orElseThrow(() -> new RuntimeException("Email não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Email not found."));
 
         
         if (!email.getSender().getId().equals(userId) && !email.getReceiver().getId().equals(userId)) {
-            throw new RuntimeException("Acesso negado: este email não pertence ao usuário");
+            throw new RuntimeException("Access denied: this email does not belong to the user.");
         }
 
        
@@ -96,18 +94,18 @@ public class EmailService {
     
     public Long findUserIdByEmail(String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new RuntimeException("User not found."));
         return user.getId();
     }
   
     private User findUserById(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new RuntimeException("User not found."));
     }
 
     private User findUserByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuário com email " + email + " não encontrado"));
+                .orElseThrow(() -> new RuntimeException("User with email " + email + " not found."));
     }
 
     private EmailResponseDTO toResponseDTO(Email email) {

@@ -6,15 +6,15 @@ import jakarta.validation.constraints.Size;
 
 public class SendEmailRequestDTO {
 
-	@NotBlank(message = "Destinatário é obrigatório")
-    @Email(message = "Email do destinatário deve ser válido")
+	@NotBlank(message = "Recipient is required.")
+    @Email(message = "Recipient email must be valid..")
     private String to;      
     
-    @Size(max = 200, message = "Máximo de 200 caracteres")
+    @Size(max = 100, message = "Maximum of 100 characters.")
     private String subject;
     
-    @Size(max = 1500, message = "Máximo de 1.500 caracteres")
-    @NotBlank(message = "Conteúdo é obrigatório")
+    @Size(max = 1500, message = "Maximum of 1.500 characters.")
+    @NotBlank(message = "Content is required.")
     private String content;
     
     public String getTo() { return to; }

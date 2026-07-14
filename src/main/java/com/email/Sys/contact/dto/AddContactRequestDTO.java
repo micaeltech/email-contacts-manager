@@ -7,12 +7,12 @@ import jakarta.validation.constraints.Size;
 
 public class AddContactRequestDTO {
 	
-	@NotBlank(message = "Email do contato é obrigatório")
-	@Email(message = "Email deve ser válido")
+	@NotBlank(message = "Contact email is required.")
+	@Email(message = "Email must be valid.")
 	private String contactEmail;
 	
-	@Size(min = 3, max = 30, message = "Apelido deve ter no mínimo 3 caracteres")
-	@Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]+$", message = "Apelido deve conter apenas letras e espaços")
+	@Size(min = 3, max = 30, message = "Nickname must be at least 3 characters and spaces.")
+	@Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]+$", message = "Nickname must contain only letters and spaces.")
 	private String nickname;
 	
 	public String getContactEmail() { return contactEmail; }

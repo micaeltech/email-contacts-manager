@@ -6,18 +6,17 @@ import jakarta.validation.constraints.Size;
 
 public class UpdatePasswordDTO {
 	
-	@NotBlank(message = "Preencha o campo.")
+	@NotBlank(message = "Fill in the field.")
     private String currentPassword;
 	
-	@NotBlank(message = "Nova senha é obrigatória")
-    @Size(min = 8, message = "Nova senha deve ter no mínimo 8 caracteres")
+	@NotBlank(message = "New password is required.")
+    @Size(min = 8, message = "New password must be at least 8 characters long.")
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!]).*$",
-             message = "Nova senha deve conter letra maiúscula, minúscula, número e caractere especial")
+             message = "New password must contain an uppercase letter, a lowercase letter, a number, and a special character.")
     private String newPassword;
 	
-    @NotBlank(message = "Confirmação de senha é obrigatória")
+    @NotBlank(message = "Password confirmation is required.")
     private String confirmNewPassword;
-    
     
     
     public String getCurrentPassword() { return currentPassword; }

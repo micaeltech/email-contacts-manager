@@ -13,7 +13,7 @@ public class AuthResponseDTO {
 		this.name = name;
 		this.token = token;
 		this.success = true;
-		this.message = "Autenticado com sucesso";
+		this.message = "Authenticated successfully.";
 	}
 	
 	public AuthResponseDTO(String message, boolean success) {
@@ -21,18 +21,16 @@ public class AuthResponseDTO {
 		this.success = success;
 	}
 	
-	//Getters
-	public String getEmail() { return email; }
-    public String getName() { return name; }
-    public String getToken() { return token; }
-    public String getMessage() { return message; }
-    public boolean isSuccess() { return success; }
+  public String getEmail() { return email; }
+  public String getName() { return name; }
+  public String getToken() { return token; }
+  public String getMessage() { return message; }
+  public boolean isSuccess() { return success; }
     
-    // Setters
-    public void setEmail(String email) { this.email = email; }
-    public void setName(String name) { this.name = name; }
-    public void setToken(String token) { this.token = token; }
-    public void setMessage(String message) { this.message = message; }
-    public void setSuccess(boolean success) { this.success = success; }
+  public void setEmail(String email) { this.email = email; }
+  public void setName(String name) { this.name = name; }
+  public void setToken(String token) { this.token = token; }
+  public void setMessage(String message) { this.message = message; }
+  public void setSuccess(boolean success) { this.success = success; }
 
 }

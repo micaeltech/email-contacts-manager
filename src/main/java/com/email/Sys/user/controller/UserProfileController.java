@@ -19,7 +19,6 @@ public class UserProfileController {
 	@Autowired
 	private JwtUtil jwtUtil;
 	
-	// 1. Atualizar email
 	@PutMapping("/email")
 	public ResponseEntity<UserResponseDTO> updateEmail(
 			@RequestHeader("Authorization") String authHeader, 
@@ -33,7 +32,6 @@ public class UserProfileController {
 		return ResponseEntity.ok(new UserResponseDTO(updatedUser, newToken));
 	}
 	
-	// 2. Adicionar email backup
 		@PostMapping("/backup-email")
 		public ResponseEntity<User> addBackupEmail(
 				@RequestHeader("Authorization") String authHeader,
@@ -45,7 +43,6 @@ public class UserProfileController {
 			return ResponseEntity.ok(updatedUser);
 	}
 		
-	// 3. Deletar email de backup
 		@DeleteMapping("/backup-email")
 		public ResponseEntity<User> removeBackupEmail(
 				@RequestHeader("Authorization") String authHeader) {
@@ -57,7 +54,6 @@ public class UserProfileController {
 	}
 	
 		
-	// 4. Redefinir senha
 	@PutMapping("/password")
 	public ResponseEntity<Void> updatePassword(
 			@RequestHeader("Authorization") String authHeader,
@@ -70,7 +66,6 @@ public class UserProfileController {
 
 	}
 	
-	// 5. Atualizar foto
 	@PutMapping("/photo")
 	public ResponseEntity<User> updatePhoto(
 			@RequestHeader("Authorization") String authHeader,
@@ -82,7 +77,6 @@ public class UserProfileController {
 		return ResponseEntity.ok(updatedUser);
 	}
 	
-	// 6. Deletar foto
 	@DeleteMapping("/photo")
 	public ResponseEntity<User> removePhoto(
 			@RequestHeader("Authorization") String authHeader) {
@@ -93,7 +87,6 @@ public class UserProfileController {
 		return ResponseEntity.ok(updatedUser);
 	}
 	
-	// 7. Atualizar status
 	@PutMapping("/status")
 	public ResponseEntity<User> updateStatus(
 			@RequestHeader("Authorization") String authHeader,

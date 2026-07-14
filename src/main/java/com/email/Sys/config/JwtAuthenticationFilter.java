@@ -46,7 +46,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         
         if (tokenBlacklistService.isTokenInvalidated(jwt)) {
         	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        	response.getWriter().write("Logout realizado.");
+        	response.getWriter().write("Logged out successfully.");
         	
         	return;
         }

@@ -1,4 +1,5 @@
 package com.email.Sys.config;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -61,7 +62,7 @@ public class JwtUtil {
 		String email = extractEmail(token);
 		
 		User user = userRepository.findByEmail(email)
-				.orElseThrow(() -> new RuntimeException("Usuário não encontrado no token"));
+				.orElseThrow(() -> new RuntimeException("User not found in the token."));
 		
 		return user.getId();
 	}

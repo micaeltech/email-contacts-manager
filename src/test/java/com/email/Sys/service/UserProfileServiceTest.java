@@ -11,17 +11,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import java.time.LocalDate;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
 /**
  * Unit tests for UserProfileService.
- * Tests profile update operations: email, password, backup email, status.
  */
 @ExtendWith(MockitoExtension.class)
 class UserProfileServiceTest {
@@ -53,14 +49,14 @@ class UserProfileServiceTest {
     @Test
     void shouldUpdateEmailSuccessfully() {
         UpdateEmailDTO dto = new UpdateEmailDTO();
-        dto.setNewEmail("novo@email.com");
+        dto.setNewEmail("new@email.com");
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(userRepository.existsByEmail(dto.getNewEmail())).thenReturn(false);
         when(userRepository.save(any(User.class))).thenReturn(user);
 
         User updated = userProfileService.updateEmail(1L, dto);
-        assertEquals("novo@email.com", updated.getEmail());
+        assertEquals("new@email.com", updated.getEmail());
         verify(userRepository).save(user);
     }
 
@@ -74,7 +70,7 @@ class UserProfileServiceTest {
 
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> userProfileService.updateEmail(1L, dto));
-        assertEquals("Email já está em uso.", exception.getMessage());
+        assertEquals("Email is already in use.", exception.getMessage());
         verify(userRepository, never()).save(any(User.class));
     }
 
@@ -82,9 +78,9 @@ class UserProfileServiceTest {
     @Test
     void shouldUpdatePasswordSuccessfully() {
         UpdatePasswordDTO dto = new UpdatePasswordDTO();
-        dto.setCurrentPassword("Senha123!@#");
-        dto.setNewPassword("NovaSenha456!@#");
-        dto.setConfirmNewPassword("NovaSenha456!@#");
+        dto.setCurrentPassword("Password123!@#");
+        dto.setNewPassword("NewPassword456!@#");
+        dto.setConfirmNewPassword("NewPassword456!@#");
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(passwordEncoder.matches(dto.getCurrentPassword(), user.getPassword())).thenReturn(true);
@@ -98,32 +94,32 @@ class UserProfileServiceTest {
     @Test
     void shouldFailUpdatePasswordWhenCurrentPasswordIsWrong() {
         UpdatePasswordDTO dto = new UpdatePasswordDTO();
-        dto.setCurrentPassword("senha_errada");
-        dto.setNewPassword("NovaSenha456!@#");
-        dto.setConfirmNewPassword("NovaSenha456!@#");
+        dto.setCurrentPassword("Wrong_password");
+        dto.setNewPassword("NewPassword456!@#");
+        dto.setConfirmNewPassword("NewPassword456!@#");
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(passwordEncoder.matches(dto.getCurrentPassword(), user.getPassword())).thenReturn(false);
 
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> userProfileService.updatePassword(1L, dto));
-        assertEquals("Senha incorreta.", exception.getMessage());
+        assertEquals("Incorrect password.", exception.getMessage());
         verify(userRepository, never()).save(any(User.class));
     }
 
     @Test
     void shouldFailUpdatePasswordWhenPasswordsDoNotMatch() {
       UpdatePasswordDTO dto = new UpdatePasswordDTO();
-      dto.setCurrentPassword("Senha123!@#");
-      dto.setNewPassword("NovaSenha456!@#");
-      dto.setConfirmNewPassword("Diferente!@#");
+      dto.setCurrentPassword("Password123!@#");
+      dto.setNewPassword("NewPassword456!@#");
+      dto.setConfirmNewPassword("Different!@#");
 
       when(userRepository.findById(1L)).thenReturn(Optional.of(user));
       when(passwordEncoder.matches(dto.getCurrentPassword(), user.getPassword())).thenReturn(true); 
 
       RuntimeException exception = assertThrows(RuntimeException.class,
           () -> userProfileService.updatePassword(1L, dto));
-      assertEquals("Nova senha e confirmação não coincidem.", exception.getMessage());
+      assertEquals("New password and confirmation do not match.", exception.getMessage());
 
     }
 

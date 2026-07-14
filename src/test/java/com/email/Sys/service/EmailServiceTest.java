@@ -13,18 +13,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
 /**
  * Unit tests for EmailService.
- * Tests email operations: send, inbox, sent, conversation.
  */
 @ExtendWith(MockitoExtension.class)
 class EmailServiceTest {
@@ -50,7 +46,7 @@ class EmailServiceTest {
         receiver = new User("Maria Santos", null, "maria@email.com", "pass", null);
         receiver.setId(2L);
 
-        email = new Email(sender, receiver, "Olá!", "Como você está?");
+        email = new Email(sender, receiver, "Hello!", "How are you?");
         email.setId(1L);
         email.setSentAt(LocalDateTime.now());
     }
@@ -60,8 +56,8 @@ class EmailServiceTest {
     void shouldSendEmailSuccessfully() {
         SendEmailRequestDTO dto = new SendEmailRequestDTO();
         dto.setTo("maria@email.com");
-        dto.setSubject("Olá!");
-        dto.setContent("Como você está?");
+        dto.setSubject("Hello!");
+        dto.setContent("How are you?");
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(sender));
         when(userRepository.findByEmail("maria@email.com")).thenReturn(Optional.of(receiver));
@@ -72,7 +68,7 @@ class EmailServiceTest {
         assertNotNull(response);
         assertEquals("joao@email.com", response.getFrom());
         assertEquals("maria@email.com", response.getTo());
-        assertEquals("Olá!", response.getSubject());
+        assertEquals("Hello!", response.getSubject());
         verify(emailRepository).save(any(Email.class));
     }
 
@@ -86,7 +82,7 @@ class EmailServiceTest {
 
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> emailService.sendEmail(1L, dto));
-        assertEquals("Não é possível enviar email para si mesmo", exception.getMessage());
+        assertEquals("You cannot send an email to yourself.", exception.getMessage());
         verify(emailRepository, never()).save(any(Email.class));
     }
 
@@ -100,7 +96,7 @@ class EmailServiceTest {
 
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> emailService.sendEmail(1L, dto));
-        assertEquals("Usuário com email unknown@email.com não encontrado", exception.getMessage()); // ← CORRIGIDO (removido o ponto final)
+        assertEquals("User with email unknown@email.com not found.", exception.getMessage());
     }
 
     /* Tests for getFeed() (inbox) */
@@ -112,7 +108,7 @@ class EmailServiceTest {
         List<EmailResponseDTO> feed = emailService.getFeed(1L);
 
         assertEquals(1, feed.size());
-        assertEquals("Olá!", feed.get(0).getSubject());
+        assertEquals("Hello!", feed.get(0).getSubject());
         verify(emailRepository).findByReceiverOrderBySentAtDesc(sender);
     }
 
@@ -191,7 +187,7 @@ class EmailServiceTest {
         EmailResponseDTO response = emailService.getEmailById(1L, 1L);
 
         assertNotNull(response);
-        assertEquals("Olá!", response.getSubject());
+        assertEquals("Hello!", response.getSubject());
         verify(emailRepository).findById(1L);
     }
 
@@ -218,6 +214,6 @@ class EmailServiceTest {
 
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> emailService.getEmailById(3L, 1L));
-        assertEquals("Acesso negado: este email não pertence ao usuário", exception.getMessage());
+        assertEquals("Access denied: this email does not belong to the user.", exception.getMessage());
     }
 }

@@ -13,17 +13,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.List;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
 /**
  * Unit tests for ContactService.
- * Tests contact operations: add, list, search, remove.
  */
 @ExtendWith(MockitoExtension.class)
 class ContactServiceTest {
@@ -84,7 +80,7 @@ class ContactServiceTest {
 
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> contactService.addContact(1L, dto));
-        assertEquals("Este Contato já existe.", exception.getMessage());
+        assertEquals("This contact already exists.", exception.getMessage());
         verify(contactRepository, never()).save(any(Contact.class));
     }
 
@@ -98,7 +94,7 @@ class ContactServiceTest {
 
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> contactService.addContact(1L, dto));
-        assertEquals("Não é possível adicionar a si mesmo.", exception.getMessage());
+        assertEquals("You cannot add yourself.", exception.getMessage());
     }
 
     /* Tests for listContacts() */
@@ -162,7 +158,7 @@ class ContactServiceTest {
 
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> contactService.removeContact(1L, 2L));
-        assertEquals("Contato não encontrado.", exception.getMessage());
+        assertEquals("Contact not found.", exception.getMessage());
         verify(contactRepository, never()).delete(any(Contact.class));
     }
 }

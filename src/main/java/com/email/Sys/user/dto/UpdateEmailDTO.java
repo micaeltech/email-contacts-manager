@@ -5,8 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 
 public class UpdateEmailDTO {
 
-	@NotBlank(message = "Preencha o campo.")
-	@Email(message = "Email deve ser válido.")
+	@NotBlank(message = "Fill in the field.")
+	@Email(message = "Email must be valid.")
 	private String newEmail;
 	
 	public String getNewEmail() { return newEmail; }

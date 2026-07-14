@@ -28,7 +28,7 @@ public class AuthService implements UserDetailsService {
 	
 	public AuthResponseDTO register(RegisterRequestDTO dto) {	
 		if (repository.existsByEmail(dto.getEmail())) {
-			return new AuthResponseDTO("Email já existe.", false);
+			return new AuthResponseDTO("Email already exists.", false);
 		}
 		
 		String encrypted_passw = passwordEncoder.encode(dto.getPassword());
@@ -46,7 +46,7 @@ public class AuthService implements UserDetailsService {
 		return new AuthResponseDTO(
 				user.getEmail(),
 				user.getName(),
-				jwtUtil.generateToken(user.getEmail()) // token
+				jwtUtil.generateToken(user.getEmail()) 
 				);
 	}
 	
@@ -54,11 +54,11 @@ public class AuthService implements UserDetailsService {
 		User user = repository.findByEmail(dto.getEmail()).orElse(null);
 		
 		if (user == null) {
-			return new AuthResponseDTO("Email não encontrado.", false);
+			return new AuthResponseDTO("Email not found.", false);
 		}
 		
 		if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
-			return new AuthResponseDTO("Senha incorreta.", false);
+			return new AuthResponseDTO("Incorrect password.", false);
 		}
 		
 		user.setStatus(User.Status.ONLINE);
@@ -74,7 +74,7 @@ public class AuthService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 	    User user = repository.findByEmail(email)
-	            .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + email));
+	            .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
 	    
 	    return org.springframework.security.core.userdetails.User
 	            .withUsername(user.getEmail())

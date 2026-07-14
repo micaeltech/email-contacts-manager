@@ -13,14 +13,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import java.time.LocalDate;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
 /**
  * Unit tests for AuthService.
  * This class tests the authentication logic (register and login) in isolation,
@@ -98,7 +95,7 @@ class AuthServiceTest {
         AuthResponseDTO response = authService.register(registerDTO);
 
         assertFalse(response.isSuccess());
-        assertEquals("Email já existe.", response.getMessage());
+        assertEquals("Email already exists.", response.getMessage());
         verify(userRepository, never()).save(any(User.class));
     }
 
@@ -126,7 +123,7 @@ class AuthServiceTest {
         AuthResponseDTO response = authService.login(loginDTO);
 
         assertFalse(response.isSuccess());
-        assertEquals("Email não encontrado.", response.getMessage());
+        assertEquals("Email not found.", response.getMessage());
         verify(userRepository, never()).save(any(User.class));
     }
 
@@ -138,7 +135,7 @@ class AuthServiceTest {
         AuthResponseDTO response = authService.login(loginDTO);
 
         assertFalse(response.isSuccess());
-        assertEquals("Senha incorreta.", response.getMessage());
+        assertEquals("Incorrect password.", response.getMessage());
         verify(userRepository, never()).save(any(User.class));
     }
 }
