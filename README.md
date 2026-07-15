@@ -7,17 +7,30 @@ contact management, and email messaging features.
 ## Tech Stack
 
 - Java 17
-- Spring Boot 3
+- Spring Boot
 - Spring Security + JWT
 - PostgreSQL
+- Redis 
+- Docker & Docker Compose 
 - Maven
+- JUnit 5 + Mockito
+- GitHub Actions (CI)
+
 
 ## Features
+
 - User Authentication: Register, login, and logout with JWT-based authentication
+  
 - User Profile: Update email, password, backup email, and online/offline status
+  
 - Contact Management: Add, list, search, and remove contacts from your address book
+  
 - Email Messaging: Send emails, view inbox, sent messages, and conversation history
+  
 - Secure & Validated: Password encryption (BCrypt), input validation, and duplicate prevention
+  
+- Persistent Token Blacklist: Logout invalidates tokens via Redis, surviving applicatio
+
 
 ## API Endpoints
 
@@ -55,21 +68,40 @@ contact management, and email messaging features.
 - `GET /emails/conversation/{id}` - Conversation with a contact
 - `GET /emails/{id}` – Email details
 
+
 ### Prerequisites
 
 - Java 17
 - PostgreSQL 12+
+- Redis 7+
+- Docker & Docker Compose (optional)
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Setup
 
+### Option 1 - Docker Compose
+
+1. Clone the repo
+2. Copy the environment template and set your own database credentials: bash => `cp .env.example .env`
+3. Run: bash => `docker compose up`
+
+The API will be available at `http://localhost:8080`
+
+
+### Option 2 - Manual setup
+
 1. Clone the repo
 2. Create a PostgreSQL database named `email_manager`
-3. Update `application.properties` with your database credentials
-4. Run `./mvnw spring-boot:run`
+3. Start a local Redis instance (or run `docker compose up -d redis`)
+4. Copy the properties template and fill in your credentials: bash => `cp src/main/resources/application.properties.template src/main/resources/application.properties`
+5. Run: bash => `./mvnw spring-boot:run`
 
 The API will be available at `http://localhost:8080`.
+
+
+## Running Test
+
+bash => `./mvnw test`
 
 
 ### API Documentation
@@ -125,10 +157,9 @@ header manually (Swagger does not always send it automatically)
 ### Inbox - Received Emails
 ![Inbox](screenshots/Screenshot%20Swagger-feed.png)
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ## Test Commands
-
 
 ### 🔑 Using variables in test commands     
                                                 
