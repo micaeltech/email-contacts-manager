@@ -131,31 +131,54 @@ You can also access the raw OpenAPI specification in JSON format:
 header manually (Swagger does not always send it automatically)
 
 
+
 ## 📸 Screenshots
 
 ### Swagger UI - All Endpoints
-![Swagger UI](screenshots/Screenshot%20Swagger-UI.png)
+![All Endpoints](screenshots/SwaggerUI-allEndpoints.png)
 
-### Register - User Creation
-![Register](screenshots/Screenshot%20Swagger-register.png)
+### Register
+![Register](screenshots/SwaggerUI-register.png)
+![Register Response](screenshots/SwaggerUI-registerResponse.png)
 
-### Login - JWT Token
-![Login](screenshots/Screenshot%20Swagger-login.png)
+### Login & Token Authorization
+![Login](screenshots/SwaggerUI-login.png)
+![Login Response](screenshots/SwaggerUI-loginResponse.png)
+![Save Token](screenshots/SwaggerUI-saveToken.png)
 
-### Save Token - Authorization
-![Save Token](screenshots/Swagger-save-token.png)
 
-### Contacts - Add and List
-![Contacts](screenshots/Screenshot%20Swagger-contacts.png)
 
-### Emails - Send and View
-![Emails](screenshots/Screenshot%20Swagger-emails.png)
+### Contacts
 
-### Send Email
-![Send Email](screenshots/Screenshot%20Swagger-send-email.png)
+**Add Contact**
+![Add Contact](screenshots/SwaggerUI-addContact.png)
+![Add Contact Response](screenshots/SwaggerUI-addContactResponse.png)
 
-### Inbox - Received Emails
-![Inbox](screenshots/Screenshot%20Swagger-feed.png)
+**List Contacts**
+![All Contacts](screenshots/SwaggerUI-allContacts.png)
+![All Contacts Response](screenshots/SwaggerUI-allContactsResponse.png)
+
+**Search Contact**
+![Search Contact](screenshots/SwaggerUI-searchContact.png)
+![Search Contact Response](screenshots/SwaggerUI-searchContactResponse.png)
+
+### Emails
+
+**Send Email**
+![Send Email](screenshots/SwaggerUI-sendEmail.png)
+![Send Email Response](screenshots/SwaggerUI-sendEmailResponse.png)
+
+**Sent Emails**
+![Sent Emails](screenshots/SwaggerUI-emailsSent.png)
+![Sent Emails Response](screenshots/SwaggerUI-emailsSentResponse.png)
+
+**Feed (Inbox)**
+![Feed](screenshots/SwaggerUI-feed.png)
+![Feed Response](screenshots/SwaggerUI-feedResponse.png)
+
+**Conversation with a Contact**
+![Conversation](screenshots/SwaggerUI-conversation.png)
+![Conversation Response](screenshots/SwaggerUI-conversationResponse.png)
 
 
 
