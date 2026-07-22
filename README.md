@@ -4,6 +4,8 @@ A RESTful API for managing contacts and emails, built with Spring Boot.
 This project provides a complete backend solution with authentication, 
 contact management, and email messaging features.
 
+**Note:** Messages are exchanged exclusively between registered plataform users, without external SMTP integration.
+
 ## Tech Stack
 
 - Java 17
